@@ -6,10 +6,45 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class ReportHelper {
+	
+	/**
+	 * @author abard
+	 * counts the number of reports on and after a given date in a given state
+	 * @param state
+	 * @param date
+	 * @param report
+	 * @return int
+	 */
+	public static int countReports(String state, LocalDate date, TreeMap<String, TreeMap<LocalDate, List<report>>> report) {
+		TreeMap<LocalDate,List<report>> map = report.get(state);
+		if(map == null) {
+			return 0;
+		}else {
+			int count = map.tailMap(date).size();
+			return count;
+		}
+	}
+	
+	/**
+	 * @author abard
+	 * calculates elapsed time and converts it to seconds
+	 * @param time1
+	 * @param time2
+	 * @return String
+	 */
+	public static String convertTime(long time1, long time2) {
+		long elapsedTime = time2 - time1;
+		double elapsedTimeSeconds;
+		elapsedTimeSeconds = elapsedTime / 1000000000;
+		return String.valueOf(elapsedTimeSeconds);
+	}
+	
     
     /**
      * @author Devin C
