@@ -9,7 +9,7 @@ import java.util.TreeMap;
  * @author abard
  *
  */
-public class program6 {
+public class program8 {
 
 	/**
 	 * main method for executing the program
@@ -52,7 +52,7 @@ public class program6 {
 		time2 = System.nanoTime();
 		processTime = ReportHelper.convertTime(time1, time2);
 		System.out.println(count + " Reports are available for " + state + " on and after the date " + stringDate);
-		System.out.println(processTime + " Seconds to calculate the number of reports");
+		System.out.println(processTime + " Miliseconds to calculate the number of reports");
 	}
 
 	/**
@@ -69,7 +69,7 @@ public class program6 {
 		TreeMap<String, TreeMap<LocalDate, List<report>>> report = ReportHelper.readAccidentReports(filePath);
 		time2 = System.nanoTime();
 		processTime = ReportHelper.convertTime(time1, time2);
-		System.out.println(processTime + " Seconds to build the treemap");
+		System.out.println(processTime + " Miliseconds to build the treemap");
 		return report;
 	}
 
