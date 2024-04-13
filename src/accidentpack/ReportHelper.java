@@ -132,7 +132,7 @@ public class ReportHelper {
     //  Taken from Dr. Behrooz Mansouri
     
     //  Create a formatter with the specific date-time format
-    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     
     /**
      * @author Dr. Behrooz Mansouri
