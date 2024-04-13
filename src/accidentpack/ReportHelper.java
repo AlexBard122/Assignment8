@@ -26,14 +26,25 @@ public class ReportHelper {
 		if(map == null) {
 			return 0;
 		}else {
-			int count = map.tailMap(date).size();
+			int count = 0;
+			for(LocalDate reports: map.navigableKeySet()) {
+				if(reports.isAfter(date) || reports.isBefore(date)) {
+					count = count + map.get(reports).size();
+				}
+			}
 			return count;
+			
+			
+			
+//			int count = map.tailMap(date).size(); // only counts accidents in the value of that date
+//												// doesn't count the accidents on days that come after
+//			return count;
 		}
 	}
 	
 	/**
 	 * @author abard
-	 * calculates elapsed time and converts it to seconds
+	 * calculates elapsed time and converts it to miliseconds
 	 * @param time1
 	 * @param time2
 	 * @return String
@@ -41,8 +52,10 @@ public class ReportHelper {
 	public static String convertTime(long time1, long time2) {
 		long elapsedTime = time2 - time1;
 		double elapsedTimeSeconds;
-		elapsedTimeSeconds = elapsedTime / 1000000000;
-		return String.valueOf(elapsedTimeSeconds);
+		elapsedTimeSeconds = elapsedTime / 1000000.0;
+		String returnValue = String.valueOf(elapsedTimeSeconds);
+		returnValue = returnValue.substring(0, 5);
+		return returnValue;
 	}
 	
     
