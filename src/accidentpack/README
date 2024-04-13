@@ -40,7 +40,7 @@ Program Debugger
 Tasks:
 	Treemap creation
 	Project initialization
-	Part 1 of Assignment6
+	Part 1 & 3 of Assignment6
 Methods:
 	report:
 		(note: original class and methods were provided by Alex but modified by Devin to handle LocalDate objects)
