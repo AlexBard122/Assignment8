@@ -28,17 +28,11 @@ public class ReportHelper {
 		}else {
 			int count = 0;
 			for(LocalDate reports: map.navigableKeySet()) {
-				if(reports.isAfter(date) || reports.isBefore(date)) {
+				if(reports.isAfter(date) || reports.isEqual(date)) {
 					count = count + map.get(reports).size();
 				}
 			}
 			return count;
-			
-			
-			
-//			int count = map.tailMap(date).size(); // only counts accidents in the value of that date
-//												// doesn't count the accidents on days that come after
-//			return count;
 		}
 	}
 	
