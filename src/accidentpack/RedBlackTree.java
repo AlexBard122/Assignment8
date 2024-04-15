@@ -27,7 +27,7 @@ public class RedBlackTree {
         }
     }
 
-    private Node root;
+    Node root;
 
     // Constructor
     public RedBlackTree() {

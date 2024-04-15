@@ -31,6 +31,13 @@ public class program8 {
 		
 		//task2 helper method
 		countReports(state, stringDate, date, report);
+		
+		//task1 helper method
+		TreeMap<String, RedBlackTree> reportRedBlack = createTreeMapRedBlack(filePath);
+		
+		//task2 helper method
+		countReportsRedBlack(state, date, reportRedBlack);
+		
 	}
 
 	/**
@@ -72,5 +79,48 @@ public class program8 {
 		System.out.println(processTime + " Miliseconds to build the treemap");
 		return report;
 	}
+	
+	/**
+     * @author abard & Devin C
+     * counts the reports in the given treemap for a given state on and after a given date
+     * @param state
+     * @param stringDate
+     * @param date
+     * @param report
+     */
+	private static void countReportsRedBlack(String state, LocalDate date, TreeMap<String, RedBlackTree> report) {
+        long time1;
+        long time2;
+        String processTime;
+
+        // Counts number of reports in a given state on and after a given date
+        time1 = System.nanoTime();
+        int count = ReportHelperRedBlack.countReportsRedBlack(state, date, report);
+        time2 = System.nanoTime();
+        processTime = ReportHelperRedBlack.convertTime(time1, time2);
+
+        System.out.println(count + " Reports are available for " + state + " on and after the date " + date);
+        System.out.println(processTime + " Milliseconds to calculate the number of reports");
+    }
+	
+	/**
+     * @author abard & Devin C
+     * creates a treemap and prints the time it takes to do so
+     * @param filePath
+     */
+    private static TreeMap<String, RedBlackTree> createTreeMapRedBlack(String filePath) {
+        long time1;
+        long time2;
+        String processTime;
+
+        // Creates TreeMap using Red-Black Trees for sorting the input file's reports
+        time1 = System.nanoTime();
+        TreeMap<String, RedBlackTree> report = ReportHelperRedBlack.readAccidentReports(filePath);
+        time2 = System.nanoTime();
+        processTime = ReportHelperRedBlack.convertTime(time1, time2);
+
+        System.out.println(processTime + " Milliseconds to build the TreeMap");
+        return report;
+    }
 
 }
