@@ -1,5 +1,7 @@
 package accidentpack;
 
+import java.time.LocalDate;
+
 /**
  * @author Devin C 
  * This class implements a Red-Black search tree for report objects.
@@ -53,7 +55,7 @@ public class RedBlackTree {
         if (key.compareTo(root.data) < 0) {
             root.left = insert(root.left, key);
             root.left.parent = root;
-        } else if (key.compareTo(root.data) > 0) {
+        } else if (key.compareTo(root.data) >= 0) {
             root.right = insert(root.right, key);
             root.right.parent = root;
         }
@@ -220,11 +222,33 @@ public class RedBlackTree {
             System.out.println("No nodes in the tree");
             return;
         }
-        System.out.print(root.data.getID() + " ");
+        System.out.println(root.data.getID() + " ");
         if (root.left != null)
             preOrder(root.left);
         if (root.right != null)
             preOrder(root.right);
+    }
+    
+    
+    // Helper method to perform pre-order traversal of the tree and count nodes
+    static int preOrderCount(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        // Initialize count for this subtree
+        int count = 1; // Count the current node
+
+//        // Print the ID of the current node
+//        System.out.print(root.data.getID() + " ");
+
+        // Recursively traverse the left subtree and accumulate count
+        count += preOrderCount(root.left);
+
+        // Recursively traverse the right subtree and accumulate count
+        count += preOrderCount(root.right);
+
+        return count; // Return the total count for this subtree
     }
 
     // Performs post-order traversal of the tree
@@ -238,5 +262,63 @@ public class RedBlackTree {
         if (key.right != null)
             postOrder(key.right);
         System.out.print(key.data.getID() + " ");
+    }
+    
+    // Method to find the first occurrence of a node with the specified date
+    public Node findFirstNodeWithDate(Node node, LocalDate date) {
+        if (node == null) {
+            return null;
+        }
+        if (date.isBefore(node.data.getStartTime())) {
+            return findFirstNodeWithDate(node.left, date);
+        } else if (date.isAfter(node.data.getStartTime())) {
+            return findFirstNodeWithDate(node.right, date);
+        } else {
+            // Found the first node with the specified date
+            return node;
+        }
+    }
+
+    // Method to count all following nodes from a given node
+    public int countFollowingNodes(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int count = 1; // Count the current node
+        count += countFollowingNodes(node.left); // Count nodes in the left subtree
+        count += countFollowingNodes(node.right); // Count nodes in the right subtree
+        return count;
+    }
+
+    // Method to find the first occurrence of a node with the specified date
+    // and count all following nodes
+    public int countNodesFromDate(LocalDate date) {
+        Node firstNodeWithDate = findFirstNodeWithDate(root, date);
+        if (firstNodeWithDate == null) {
+            return 0; // No node found with the specified date
+        }
+        return countFollowingNodes(firstNodeWithDate);
+    }
+    
+    /**
+     * @author abard
+     * returns the number of nodes which come after a given node
+     * & have dates >= the given node
+     * @param root
+     * @return int
+     */
+    int countAfter(Node root, LocalDate date) {
+        if(root == null)
+            return 0;
+        else
+            if(root.data.getStartTime().isBefore(date))
+                return countAfter(root.right, date);
+            //if root left date is before given date, count root and right root nodes
+            if(root.left != null)
+                if(root.left.data.getStartTime().isBefore(date))
+                    return 1 + countAfter(root.right, date);
+                else
+                    return 1 + countAfter(root.right, date) + countAfter(root.left, date);
+            return 1 + countAfter(root.right, date);        
     }
 }

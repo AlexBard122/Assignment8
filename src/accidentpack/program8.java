@@ -3,6 +3,7 @@ package accidentpack;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -32,12 +33,46 @@ public class program8 {
 		//task2 helper method
 		countReports(state, stringDate, date, report);
 		
-		//task1 helper method
-		TreeMap<String, RedBlackTree> reportRedBlack = createTreeMapRedBlack(filePath);
+//		//task1 helper method
+//		TreeMap<String, RedBlackTree> reportRedBlack = createTreeMapRedBlack(filePath);
+//		
+//		//task2 helper method
+//		countReportsRedBlack(state, date, reportRedBlack);
 		
-		//task2 helper method
-		countReportsRedBlack(state, date, reportRedBlack);
+//		// Get the RedBlackTree for the given state
+//		RedBlackTree stateAccidentsTree = reportRedBlack.get(state);
+//
+//		// Perform pre-order traversal starting from the root of the tree and get the total count
+//		int totalCount = 0;
+//		if (stateAccidentsTree != null && stateAccidentsTree.root != null) {
+//		    totalCount = stateAccidentsTree.preOrderCount(stateAccidentsTree.root);
+//		} else {
+//		    System.out.println("No reports for the given state or empty tree");
+//		}
+//
+//		System.out.println("Total count of nodes: " + totalCount);
 		
+//		// Initialize the total count
+//		int totalCount = 0;
+//
+//		// Iterate over each entry (state and its corresponding RedBlackTree) in the TreeMap
+//		for (Map.Entry<String, RedBlackTree> entry : reportRedBlack.entrySet()) {
+//		    // Get the RedBlackTree for the current state
+//		    RedBlackTree stateAccidentsTree = entry.getValue();
+//
+//		    // Check if the RedBlackTree exists and is not empty
+//		    if (stateAccidentsTree != null && stateAccidentsTree.root != null) {
+//		        // Perform pre-order traversal starting from the root of the tree and get the count of nodes
+//		        int stateCount = stateAccidentsTree.preOrderCount(stateAccidentsTree.root);
+//		        
+//		        // Add the count of nodes in the current state to the total count
+//		        totalCount += stateCount;
+//		    }
+//		}
+//
+//		// Print the total count of all reports in all states
+//		System.out.println("Total count of reports in all states: " + totalCount);
+//		
 	}
 
 	/**
@@ -89,19 +124,25 @@ public class program8 {
      * @param report
      */
 	private static void countReportsRedBlack(String state, LocalDate date, TreeMap<String, RedBlackTree> report) {
-        long time1;
-        long time2;
-        String processTime;
+	    long time1;
+	    long time2;
+	    String processTime;
 
-        // Counts number of reports in a given state on and after a given date
-        time1 = System.nanoTime();
-        int count = ReportHelperRedBlack.countReportsRedBlack(state, date, report);
-        time2 = System.nanoTime();
-        processTime = ReportHelperRedBlack.convertTime(time1, time2);
+	    // Counts number of reports in a given state on and after a given date
+	    time1 = System.nanoTime();
+	    int count = 0; // Initialize count
+	    RedBlackTree stateAccidentsTree = report.get(state);
+	    if (stateAccidentsTree != null) {
+//	        count = stateAccidentsTree.countNodesFromDate(date);
+	        count = stateAccidentsTree.countAfter(stateAccidentsTree.root, date);
+	    }
+	    time2 = System.nanoTime();
+	    processTime = ReportHelperRedBlack.convertTime(time1, time2);
 
-        System.out.println(count + " Reports are available for " + state + " on and after the date " + date);
-        System.out.println(processTime + " Milliseconds to calculate the number of reports");
-    }
+	    System.out.println(count + " Reports are available for " + state + " on and after the date " + date + " with RedBlackTree");
+	    System.out.println(processTime + " Milliseconds to calculate the number of reports with RedBlackTree");
+	}
+	
 	
 	/**
      * @author abard & Devin C
@@ -119,7 +160,7 @@ public class program8 {
         time2 = System.nanoTime();
         processTime = ReportHelperRedBlack.convertTime(time1, time2);
 
-        System.out.println(processTime + " Milliseconds to build the TreeMap");
+        System.out.println(processTime + " Milliseconds to build the TreeMap with RedBlackTree");
         return report;
     }
 
