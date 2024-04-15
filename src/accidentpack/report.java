@@ -130,6 +130,9 @@ public class report implements Comparable <report>{
 
     @Override
     public int compareTo(report r) {
+//        int t = this.StartTime.compareTo(r.getStartTime());
+//        if(t==0)
+//            System.out.println("456456");
         return this.StartTime.compareTo(r.getStartTime());
     } 
 }
