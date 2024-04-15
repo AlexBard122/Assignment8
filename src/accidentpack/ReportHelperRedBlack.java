@@ -9,91 +9,50 @@ import java.util.TreeMap;
 
 public class ReportHelperRedBlack {
     
-    /**
-     * @author Devin C
-     * Counts the number of reports on and after a given date in a given state.
-     * @param state The state for which to count reports.
-     * @param date The date from which to count reports.
-     * @param report A TreeMap mapping states to Red-Black trees of accidents.
-     * @return The number of reports on and after the given date in the given state.
-     */
-    public static int countReportsRedBlack(String state, LocalDate date, TreeMap<String, RedBlackTree> report) {
-        RedBlackTree stateAccidentsTree = report.get(state);
-        RedBlackTree.Node root = stateAccidentsTree.root;
-        if (stateAccidentsTree == null || stateAccidentsTree.root == null) {
-            return 0; // No reports for the given state or empty tree
-        } else {
-            // Start counting from the given date
-            RedBlackTree.Node startingNode = findNodeFromDate(root, date);
-            if (startingNode == null) {
-                return 0; // No reports on or after the given date
-            }
-            return RedBlackTree.preOrderCount(startingNode);
-        }
-    }
-
-    /**
-     * @author Devin C
-     * Helper method to find the node corresponding to the given date.
-     * @param node The root node of the Red-Black tree.
-     * @param date The date from which to count reports.
-     * @return The node corresponding to the given date, or null if not found.
-     */
-    private static RedBlackTree.Node findNodeFromDate(RedBlackTree.Node node, LocalDate date) {
-        if (node == null) {
-            return null;
-        }
-        if (date.isBefore(node.data.getStartTime())) {
-            return findNodeFromDate(node.left, date);
-        } else if (date.isAfter(node.data.getStartTime())) {
-            return findNodeFromDate(node.right, date);
-        } else {
-            // If the date matches exactly, return this node
-            return node;
-        }
-    }
-
 //    /**
 //     * @author Devin C
-//     * Helper method to count reports from a given node and its children.
-//     * @param node The starting node for counting reports.
+//     * Counts the number of reports on and after a given date in a given state.
+//     * @param state The state for which to count reports.
 //     * @param date The date from which to count reports.
-//     * @return The number of reports starting from the given node on or after the given date.
+//     * @param report A TreeMap mapping states to Red-Black trees of accidents.
+//     * @return The number of reports on and after the given date in the given state.
 //     */
-//    private static int countReportsFromNode(RedBlackTree.Node node, LocalDate date) {
-//        if (node == null) {
-//            return 0;
+//    public static int countReportsRedBlack(String state, LocalDate date, TreeMap<String, RedBlackTree> report) {
+//        RedBlackTree stateAccidentsTree = report.get(state);
+//        RedBlackTree.Node root = stateAccidentsTree.root;
+//        if (stateAccidentsTree == null || stateAccidentsTree.root == null) {
+//            return 0; // No reports for the given state or empty tree
+//        } else {
+//            // Start counting from the given date
+//            RedBlackTree.Node startingNode = findNodeFromDate(root, date);
+//            if (startingNode == null) {
+//                return 0; // No reports on or after the given date
+//            }
+//            return RedBlackTree.preOrderCount(startingNode);
 //        }
-//        
-//        int count = 0; // Initialize count
-//        
-//        // Check if the node's start time is on or after the given date
-//        if (date.isEqual(node.data.getStartTime())) {
-//            // If yes, increment count by 1
-//            count++;
-//        }
-//        
-//        // Recursively count reports from the left and right subtrees
-//        count += countReportsFromNode(node.left, date);
-//        count += countReportsFromNode(node.right, date);
-//        
-//        return count;
 //    }
-    
-//    private static int countReportsFromNode(RedBlackTree.Node node) {
+//
+//    /**
+//     * @author Devin C
+//     * Helper method to find the node corresponding to the given date.
+//     * @param node The root node of the Red-Black tree.
+//     * @param date The date from which to count reports.
+//     * @return The node corresponding to the given date, or null if not found.
+//     */
+//    private static RedBlackTree.Node findNodeFromDate(RedBlackTree.Node node, LocalDate date) {
 //        if (node == null) {
-//            return 0;
+//            return null;
 //        }
-//        
-//        // Count all reports in the subtree rooted at the given node
-//        int count = 1; // Start with 1 to count the current node
-//        
-//        // Recursively count reports from the left and right subtrees
-//        count += countReportsFromNode(node.left);
-//        count += countReportsFromNode(node.right);
-//        
-//        return count;
+//        if (date.isBefore(node.data.getStartTime())) {
+//            return findNodeFromDate(node.left, date);
+//        } else if (date.isAfter(node.data.getStartTime())) {
+//            return findNodeFromDate(node.right, date);
+//        } else {
+//            // If the date matches exactly, return this node
+//            return node;
+//        }
 //    }
+
     
     /**
      * @author abard

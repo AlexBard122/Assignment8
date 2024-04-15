@@ -230,26 +230,27 @@ public class RedBlackTree {
     }
     
     
-    // Helper method to perform pre-order traversal of the tree and count nodes
-    static int preOrderCount(Node root) {
-        if (root == null) {
-            return 0;
-        }
-
-        // Initialize count for this subtree
-        int count = 1; // Count the current node
-
+//    // Helper method to perform pre-order traversal of the tree and count nodes
+//    //Does not work
+//    static int preOrderCount(Node root) {
+//        if (root == null) {
+//            return 0;
+//        }
+//
+//        // Initialize count for this subtree
+//        int count = 1; // Count the current node
+//
 //        // Print the ID of the current node
 //        System.out.print(root.data.getID() + " ");
-
-        // Recursively traverse the left subtree and accumulate count
-        count += preOrderCount(root.left);
-
-        // Recursively traverse the right subtree and accumulate count
-        count += preOrderCount(root.right);
-
-        return count; // Return the total count for this subtree
-    }
+//
+//        // Recursively traverse the left subtree and accumulate count
+//        count += preOrderCount(root.left);
+//
+//        // Recursively traverse the right subtree and accumulate count
+//        count += preOrderCount(root.right);
+//
+//        return count; // Return the total count for this subtree
+//    }
 
     // Performs post-order traversal of the tree
     void postOrder(Node key) {
@@ -262,42 +263,6 @@ public class RedBlackTree {
         if (key.right != null)
             postOrder(key.right);
         System.out.print(key.data.getID() + " ");
-    }
-    
-    // Method to find the first occurrence of a node with the specified date
-    public Node findFirstNodeWithDate(Node node, LocalDate date) {
-        if (node == null) {
-            return null;
-        }
-        if (date.isBefore(node.data.getStartTime())) {
-            return findFirstNodeWithDate(node.left, date);
-        } else if (date.isAfter(node.data.getStartTime())) {
-            return findFirstNodeWithDate(node.right, date);
-        } else {
-            // Found the first node with the specified date
-            return node;
-        }
-    }
-
-    // Method to count all following nodes from a given node
-    public int countFollowingNodes(Node node) {
-        if (node == null) {
-            return 0;
-        }
-        int count = 1; // Count the current node
-        count += countFollowingNodes(node.left); // Count nodes in the left subtree
-        count += countFollowingNodes(node.right); // Count nodes in the right subtree
-        return count;
-    }
-
-    // Method to find the first occurrence of a node with the specified date
-    // and count all following nodes
-    public int countNodesFromDate(LocalDate date) {
-        Node firstNodeWithDate = findFirstNodeWithDate(root, date);
-        if (firstNodeWithDate == null) {
-            return 0; // No node found with the specified date
-        }
-        return countFollowingNodes(firstNodeWithDate);
     }
     
     /**
