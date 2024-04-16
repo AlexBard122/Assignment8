@@ -7,21 +7,19 @@ type cmd into file explorer
 in cmd.exe:
 	javac report.java
 	javac Reporthelper.java
-	javac program6.java
-	java program6 <filepath of accidents.csv> <state> <date>
+	javac program8.java
+	java program8 <filepath of accidents.csv> <state> <date>
 									// date must be in format year-month-day xxxx-xx-xx
 
 Alex:
 	GitHub Project Manager
 	Program Debugger
 Tasks:
-	Handling user input
-	Main method setup
-	Main method outputs
+	Updating TreeMap counting method
 	README file management
-	Parts 2-4 of Assignment6
+	Parts 1-3 of Assignment8
 Methods:
-	program6:
+	program8:
 		main()
 		countReports()
 		createTreeMap()
@@ -33,19 +31,35 @@ Methods:
 		countReports()
 		convertTime()
 		readfile()
+		(Note: countReports() & convertTime() were the only methods which were modified/improved by Alex)
+	RedBlackTree:
+		countAfter()
+	ReportHelperRedBlack:
+		convertTime()
+		readfile()
+		
 
 Devin:
 Head Programmer
 Program Debugger
 Tasks:
-	Treemap creation
+	Red-Black Tree creation
 	Project initialization
-	Part 1 & 3 of Assignment6
+	Part 4 of Assignment8
 Methods:
+	program8:
+		createTreeMapRedBlack()
+		countReportsRedBlack()
 	report:
 		(note: original class and methods were provided by Alex but modified by Devin to handle LocalDate objects)
 	ReportHelper:
 		readAccidentReports()
 		readfile()
 		dateConvert() (note: original method made by Dr. Behrooz Mansouri, added by Devin)
+	RedBlackTree:
+		(Note: all methods except countAfter() were made by Devin)
+	ReportHelperRedBlack:
+		(Note: all methods except dateConvert() were made by Devin)
+		
+	
 	
